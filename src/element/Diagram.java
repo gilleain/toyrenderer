@@ -6,6 +6,7 @@ import java.awt.geom.Rectangle2D;
 
 import render.RendererModel;
 import visitor.BoundsCalculationVisitor;
+import visitor.DirectDrawVisitor;
 import visitor.IRenderingVisitor;
 import visitor.OnePassVisitor;
 
@@ -30,7 +31,9 @@ public class Diagram implements IRenderingElement {
     public void paint(Graphics2D g, Rectangle2D canvas) {
         if (root.children.size() == 0) return;
         setupTransform(canvas);
-        root.accept(new OnePassVisitor(g, transform));
+        System.out.println(transform);
+//        root.accept(new OnePassVisitor(g, transform));
+        root.accept(new DirectDrawVisitor(g, transform));
     }
     
     private void setupTransform(Rectangle2D canvas) {

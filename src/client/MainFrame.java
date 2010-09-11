@@ -16,13 +16,16 @@ public class MainFrame extends JFrame implements MouseWheelListener {
         
         panel = new DiagramPanel(); 
         add(panel);
-        makeModel();
+        
+//        makeModelA();
+        makeModelB();
+        
         pack();
         setVisible(true);
         addMouseWheelListener(this);
     }
     
-    public void makeModel() {
+    public void makeModelA() {
         panel.molecule = new Molecule();
         panel.molecule.addAtom("A", 1, 3);
         panel.molecule.addAtom("B", 3, 3);
@@ -31,6 +34,13 @@ public class MainFrame extends JFrame implements MouseWheelListener {
         panel.molecule.bond(0, 1);
         panel.molecule.bond(1, 2);
         panel.molecule.bond(2, 3);
+    }
+    
+    public void makeModelB() {
+        panel.molecule = new Molecule();
+        panel.molecule.addAtom("A", 1, 3);
+        panel.molecule.addAtom("B", 3, 3);
+        panel.molecule.bond(0, 1);
     }
 
     @Override
