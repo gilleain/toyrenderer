@@ -13,5 +13,9 @@ public class Atom {
         this.y = y;
         this.elementSymbol = elementSymbol;
     }
+    
+    public String toString() {
+        return String.format("%s[%2.2f, %2.2f]", elementSymbol, x, y);
+    }
 
 }

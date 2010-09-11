@@ -21,5 +21,13 @@ public class Molecule {
     public void bond(int indexA, int indexB) {
         bonds.add(new Bond(atoms.get(indexA), atoms.get(indexB)));
     }
+    
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(atoms);
+        sb.append(" ");
+        sb.append(bonds);
+        return sb.toString();
+    }
 
 }

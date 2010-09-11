@@ -5,6 +5,7 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JFrame;
 
+import model.ModelBuilder;
 import model.Molecule;
 
 public class MainFrame extends JFrame implements MouseWheelListener {
@@ -37,10 +38,8 @@ public class MainFrame extends JFrame implements MouseWheelListener {
     }
     
     public void makeModelB() {
-        panel.molecule = new Molecule();
-        panel.molecule.addAtom("A", 1, 3);
-        panel.molecule.addAtom("B", 3, 3);
-        panel.molecule.bond(0, 1);
+        panel.molecule = ModelBuilder.linearMolecule(100);
+        System.out.println(panel.molecule);
     }
 
     @Override
