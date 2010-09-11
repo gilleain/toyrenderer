@@ -44,7 +44,6 @@ public class DirectDrawVisitor implements IRenderingVisitor {
         double x2 = connection.x2;
         double y2 = connection.y2;
         g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
-        
     }
     
     public void visit(TextBox box) {

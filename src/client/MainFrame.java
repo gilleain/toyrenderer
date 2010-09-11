@@ -1,56 +1,50 @@
 package client;
 
+import java.awt.GridLayout;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.JFrame;
 
 import model.ModelBuilder;
-import model.Molecule;
 
 public class MainFrame extends JFrame implements MouseWheelListener {
     
-    public DiagramPanel panel;
+    public DiagramPanel panelA;
+    
+    public DiagramPanel panelB;
     
     public MainFrame() {
         super("MainFrame");
         
-        panel = new DiagramPanel(); 
-        add(panel);
+        setLayout(new GridLayout(1, 2));
         
-//        makeModelA();
-        makeModelB();
+        panelA = new DiagramPanel();
+        panelA.molecule = ModelBuilder.linearMolecule(60);
+        add(panelA);
+        
+        panelB = new DiagramPanel(); 
+        panelB.molecule = ModelBuilder.linearMolecule(40);
+        add(panelB);
         
         pack();
         setVisible(true);
         addMouseWheelListener(this);
     }
     
-    public void makeModelA() {
-        panel.molecule = new Molecule();
-        panel.molecule.addAtom("A", 1, 3);
-        panel.molecule.addAtom("B", 3, 3);
-        panel.molecule.addAtom("C", 5, 5);
-        panel.molecule.addAtom("D", 1, 2);
-        panel.molecule.bond(0, 1);
-        panel.molecule.bond(1, 2);
-        panel.molecule.bond(2, 3);
-    }
-    
-    public void makeModelB() {
-        panel.molecule = ModelBuilder.linearMolecule(100);
-        System.out.println(panel.molecule);
-    }
-
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         if (e.getWheelRotation() > 0) {
-            panel.setZoom(panel.getZoom() * 0.9);
+            panelA.setZoom(panelA.getZoom() * 0.9);
+            panelB.setZoom(panelB.getZoom() * 0.9);
         } else {
-            panel.setZoom(panel.getZoom() * 1.1);
+            panelA.setZoom(panelA.getZoom() * 1.1);
+            panelB.setZoom(panelB.getZoom() * 1.1);
         }
-        System.out.println("zoom now " + panel.getZoom());
-        panel.repaint();
+        System.out.println("zoom A now " + panelA.getZoom());
+        System.out.println("zoom B now " + panelB.getZoom());
+        panelA.repaint();
+        panelB.repaint();
     }
 
     public static void main(String[] args) {

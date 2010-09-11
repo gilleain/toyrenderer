@@ -31,7 +31,7 @@ public class Diagram implements IRenderingElement {
     public void paint(Graphics2D g, Rectangle2D canvas) {
         if (root.children.size() == 0) return;
         setupTransform(canvas);
-        System.out.println(transform);
+//        System.out.println(transform);
 //        root.accept(new OnePassVisitor(g, transform));
         root.accept(new DirectDrawVisitor(g, transform));
     }
