@@ -1,0 +1,3 @@
+This is a TOY version of the rendering code used in the CDK. The design is basically the same as the one made by me (gilleain), Arvid Berg, Egon Willighagen, and Stefan Kuhn.
+
+The core idea is that there is an intermediate layer between the model objects (Molecule, Atom, Bond) and the drawing. These are the IRenderingElements which are created by IGenerators which process the model. This generation process is directed by a Renderer, and produces a tree of such elements. This tree is visited by an IRenderingVisitor which does the actual drawing, using an appropriate graphics toolkit (AWT, SWT).
