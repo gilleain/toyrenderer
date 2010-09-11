@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,9 @@ public class DiagramPanel extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         if (molecule != null) {
-            renderer.paint((Graphics2D)g, molecule, getBounds());
+            Rectangle bounds = getBounds();
+            renderer.paint((Graphics2D)g, molecule, 
+                    new Rectangle(0, 0, bounds.width, bounds.height));
         }
     }
     

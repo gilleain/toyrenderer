@@ -20,12 +20,12 @@ public class MainFrame extends JFrame implements MouseWheelListener {
         setLayout(new GridLayout(1, 2));
         
         panelA = new DiagramPanel();
-        panelA.molecule = ModelBuilder.linearMolecule(60);
         add(panelA);
+        panelA.molecule = ModelBuilder.linearMolecule(100);
         
         panelB = new DiagramPanel(); 
-        panelB.molecule = ModelBuilder.linearMolecule(40);
         add(panelB);
+        panelB.molecule = ModelBuilder.linearMolecule(10);
         
         pack();
         setVisible(true);
