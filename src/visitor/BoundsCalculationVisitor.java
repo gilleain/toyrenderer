@@ -9,10 +9,10 @@ import element.TextBox;
 
 public class BoundsCalculationVisitor implements IRenderingVisitor {
     
-    public double minX = Double.MAX_VALUE;
-    public double minY = Double.MAX_VALUE;
-    public double maxX = 0.0;
-    public double maxY = 0.0;
+    public double minX;
+    public double minY;
+    public double maxX;
+    public double maxY;
     
     public BoundsCalculationVisitor() {
         minX = Double.MAX_VALUE;
