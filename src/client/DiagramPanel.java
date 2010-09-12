@@ -12,7 +12,9 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 
 import model.Molecule;
 
@@ -28,6 +30,8 @@ public class DiagramPanel extends JPanel {
     public List<IGenerator> generators;
    
     public DiagramPanel() {
+        setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        
         generators = new ArrayList<IGenerator>();
         generators.add(new BondGenerator());
         generators.add(new AtomGenerator());

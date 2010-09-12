@@ -17,10 +17,14 @@ public class DirectDrawVisitor implements IRenderingVisitor {
     
     public AffineTransform transform;
     
-    public DirectDrawVisitor(Graphics2D g, AffineTransform transform) {
+    public AffineTransform zoomTransform;
+    
+    public DirectDrawVisitor(Graphics2D g,
+            AffineTransform transform, AffineTransform zoomTransform) {
         this.g = g;
         this.transform = transform;
-        g.setTransform(transform);
+        this.zoomTransform = zoomTransform;
+//        g.setTransform(transform);
     }
 
     @Override
@@ -39,14 +43,24 @@ public class DirectDrawVisitor implements IRenderingVisitor {
     }
     
     public void visit(Connection connection) {
+        AffineTransform original = g.getTransform();
+        AffineTransform concat = (AffineTransform) original.clone();
+        concat.concatenate(transform);
+        g.setTransform(concat);
         double x1 = connection.x1;
         double y1 = connection.y1;
         double x2 = connection.x2;
         double y2 = connection.y2;
         g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
+        g.setTransform(original);
     }
     
     public void visit(TextBox box) {
+        AffineTransform original = g.getTransform();
+        AffineTransform concat = (AffineTransform) original.clone();
+        concat.concatenate(zoomTransform);
+        g.setTransform(concat);
+        
         FontMetrics fm = g.getFontMetrics();
         
         Rectangle2D textBounds = fm.getStringBounds(box.text, g);
@@ -62,6 +76,7 @@ public class DirectDrawVisitor implements IRenderingVisitor {
         int baseX = boundsX;
         int baseY = boundsY + fm.getAscent();
         g.drawString(box.text, baseX, baseY);
+        g.setTransform(original);
     }
 
 }
