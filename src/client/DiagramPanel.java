@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,8 +53,17 @@ public class DiagramPanel extends JPanel {
         super.paint(g);
         if (molecule != null) {
             Rectangle bounds = getBounds();
-            renderer.paint((Graphics2D)g, molecule, 
+            Graphics2D g2 = (Graphics2D)g; 
+            AffineTransform original = g2.getTransform();
+            renderer.paint(g2, molecule, 
                     new Rectangle(0, 0, bounds.width, bounds.height));
+            String details = String.format(
+                    "Zoom = %2.2f, Scale = %2.2f",
+                    renderer.model.zoom, renderer.model.scale);
+            g2.setTransform(original);
+            g2.setColor(Color.BLACK);
+            System.out.println(details);
+            g2.drawString(details, 10, bounds.height - 20);
         }
     }
     
