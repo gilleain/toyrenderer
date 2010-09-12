@@ -1,14 +1,11 @@
 package element;
 
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import render.RendererModel;
-import visitor.BoundsCalculationVisitor;
-import visitor.DirectDrawVisitor;
 import visitor.IRenderingVisitor;
-import visitor.OnePassVisitor;
 import visitor.ZoomingDrawVisitor;
 
 public class Diagram implements IRenderingElement {
@@ -17,9 +14,12 @@ public class Diagram implements IRenderingElement {
     
     public RendererModel model;
     
-    public Diagram(RendererModel model) {
+    public Point2D drawCenter;
+    
+    public Diagram(RendererModel model, Point2D drawCenter) {
         this.model = model;
         root = new ElementGroup();
+        this.drawCenter = drawCenter; 
     }
     
     @Override
@@ -29,34 +29,8 @@ public class Diagram implements IRenderingElement {
 
     public void paint(Graphics2D g, Rectangle2D canvas) {
         if (root.children.size() == 0) return;
-//        BoundsCalculationVisitor boundsVisitor = new BoundsCalculationVisitor(); 
-//        root.accept(boundsVisitor);
-//        Rectangle2D bounds = boundsVisitor.getBounds();
-//        AffineTransform transform = createTotalTransform(canvas, bounds);
-//        System.out.println(transform);
-//        root.accept(new OnePassVisitor(g, transform));
-//        root.accept(new DirectDrawVisitor(g, transform, zoomTransform));
-        root.accept(new ZoomingDrawVisitor(g, model.zoom, canvas));
-    }
-    
-    private AffineTransform createTotalTransform(
-            Rectangle2D canvas, Rectangle2D bounds) {
-        
-        double boundsX = bounds.getCenterX();
-        double boundsY = bounds.getCenterY();
-        double drawX = canvas.getCenterX();
-        double drawY = canvas.getCenterY();
-        
-        model.scale = Math.min(canvas.getWidth()  / bounds.getWidth(),
-                               canvas.getHeight() / bounds.getHeight());
-//        System.out.println("setting scale " + model.scale);
-        
-        AffineTransform transform = new AffineTransform();
-        transform.translate(drawX, drawY);
-        transform.scale(model.scale, model.scale);
-        transform.scale(model.zoom, model.zoom);
-        transform.translate(-boundsX, -boundsY);
-        return transform;
+        root.accept(new ZoomingDrawVisitor(
+                g, model.zoom, drawCenter.getX(), drawCenter.getY()));
     }
 
 }

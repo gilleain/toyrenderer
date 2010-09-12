@@ -29,6 +29,7 @@ public class MainFrame extends JFrame implements MouseWheelListener {
         
         pack();
         setVisible(true);
+        
         addMouseWheelListener(this);
     }
     
@@ -50,4 +51,6 @@ public class MainFrame extends JFrame implements MouseWheelListener {
     public static void main(String[] args) {
         new MainFrame();
     }
+
+   
 }

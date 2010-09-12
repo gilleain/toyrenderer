@@ -5,6 +5,7 @@ import generator.IGenerator;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
@@ -19,6 +20,8 @@ public class Renderer {
     
     public List<IGenerator> generators;
     
+    public Point2D drawCenter;
+    
     public Renderer(List<IGenerator> generators, FontManager fontManager) {
         this.fontManager = fontManager;
         this.generators = generators;
@@ -26,7 +29,10 @@ public class Renderer {
     }
     
     public void paint(Graphics2D g, Molecule molecule, Rectangle2D canvas) {
-        Diagram diagram = new Diagram(model);
+        if (drawCenter == null) {
+            drawCenter = new Point2D.Double(canvas.getCenterX(), canvas.getCenterY());
+        }
+        Diagram diagram = new Diagram(model, drawCenter);
         Rectangle2D bounds = getBounds(molecule);
         AffineTransform transform = createTransform(canvas, bounds);
         for (IGenerator generator : generators) {
@@ -55,15 +61,13 @@ public class Renderer {
         
         double boundsX = bounds.getCenterX();
         double boundsY = bounds.getCenterY();
-        double drawX = canvas.getCenterX();
-        double drawY = canvas.getCenterY();
+        double boundsW = bounds.getWidth();
+        double boundsH = bounds.getHeight();
         
-        model.scale = Math.min(canvas.getWidth()  / (bounds.getWidth() * 10),
-                               canvas.getHeight() / (bounds.getHeight() * 10));
-//        System.out.println("setting scale " + model.scale);
+        model.scale = Math.min(canvas.getWidth()  / (boundsW * 10),
+                               canvas.getHeight() / (boundsH * 10));
         
         AffineTransform transform = new AffineTransform();
-//        transform.translate(drawX, drawY);
         transform.scale(model.scale, model.scale);
         transform.scale(model.zoom, model.zoom);
         transform.translate(-boundsX, -boundsY);
