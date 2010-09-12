@@ -14,8 +14,9 @@ public class ZoomingDrawVisitor implements IRenderingVisitor {
     
     public Graphics2D g;
     
-    public ZoomingDrawVisitor(Graphics2D g, double zoom) {
+    public ZoomingDrawVisitor(Graphics2D g, double zoom, Rectangle2D canvas) {
         this.g = g;
+        g.translate(canvas.getCenterX(), canvas.getCenterY());
         g.scale(zoom, zoom);
     }
 

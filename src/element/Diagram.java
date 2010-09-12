@@ -36,7 +36,7 @@ public class Diagram implements IRenderingElement {
 //        System.out.println(transform);
 //        root.accept(new OnePassVisitor(g, transform));
 //        root.accept(new DirectDrawVisitor(g, transform, zoomTransform));
-        root.accept(new ZoomingDrawVisitor(g, model.zoom));
+        root.accept(new ZoomingDrawVisitor(g, model.zoom, canvas));
     }
     
     private AffineTransform createTotalTransform(

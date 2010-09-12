@@ -58,12 +58,12 @@ public class Renderer {
         double drawX = canvas.getCenterX();
         double drawY = canvas.getCenterY();
         
-        model.scale = Math.min(canvas.getWidth()  / bounds.getWidth(),
-                               canvas.getHeight() / bounds.getHeight());
+        model.scale = Math.min(canvas.getWidth()  / (bounds.getWidth() * 10),
+                               canvas.getHeight() / (bounds.getHeight() * 10));
 //        System.out.println("setting scale " + model.scale);
         
         AffineTransform transform = new AffineTransform();
-        transform.translate(drawX, drawY);
+//        transform.translate(drawX, drawY);
         transform.scale(model.scale, model.scale);
         transform.scale(model.zoom, model.zoom);
         transform.translate(-boundsX, -boundsY);
